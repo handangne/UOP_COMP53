@@ -36,3 +36,67 @@ If an efficient algorithm exists for one NP-complete problem, then all NP-comple
 By knowing a problem is NP-complete, instead of trying to find an efficient algorithm to solve the problem, a programmer can focus on finding an algorithm to efficiently find a good, but non-optimal, solution.
 
 ## 1.3 Relation between data structures and algorithms
+### Algorithms for data structures
+Data structures not only define how data is organized and stored, but also the operations performed on the data structure. While common operations include inserting, removing, and searching for data, the algorithms to implement those operations are typically specific to each data structure. Ex: Appending an item to a linked list requires a different algorithm than appending an item to an array.
+
+```Cpp
+// Algorithm for appending to array
+ArrayAppend(array, newItem) {
+   currentSize = array⇢length
+   Increase array size by one
+   array[currentSize] = newItem
+}
+```
+```Cpp
+// Algorithm for appending to linked-list
+ListAppend(list, newNode) {
+   if (list⇢head == null) { // List empty
+      list⇢head = newNode
+      list⇢tail = newNode
+   }
+   else{
+      list⇢tail⇢next = newNode
+      list⇢tail = newNode
+   }
+   list⇢length++
+}
+```
+The algorithm to append an item to an array determines the current size, increases the array size by 1, and assigns the new item as the last array element.
+The algorithm to append an item to a linked list points the tail node's next pointer and the list's tail pointer to the new node.
+
+### Algorithms using data structures
+Some algorithms utilize data structures to store and organize data during the algorithm execution. Ex: An algorithm that determines a list of the top five salespersons, may use an array to store salespersons sorted by their total sales.
+
+```Cpp
+DisplayTopFiveSalespersons(allSalespersons) {
+   // topSales array has 5 elements
+   // Array elements have subitems for name and total sales
+   // Array will be sorted from highest total sales to lowest total sales
+   topSales = Create array with 5 elements 
+   
+   // Initialize all array elements with a negative sales total
+   for (i = 0; i < topSales⇢length; ++i) {
+      topSales[i]⇢name = ""
+      topSales[i]⇢salesTotal = -1
+   }
+
+   for each salesPerson in allSalespersons {
+      // If salesPerson's total sales is greater than the last
+      // topSales element, salesPerson is one of the top five so far
+      if (salesPerson⇢salesTotal > topSales[topSales⇢length - 1]⇢salesTotal) {
+
+         // Assign the last element in topSales with the current salesperson
+         topSales[topSales⇢length - 1]⇢name =  salesPerson⇢name 
+         topSales[topSales⇢length - 1]⇢salesTotal =  salesPerson⇢salesTotal 
+
+         // Sort topSales in descending order
+         SortDescending(topSales)
+      }
+   }
+
+   // Display the top five salespersons
+   for (i = 0; i < topSales⇢length; ++i) {
+      Display topSales[i] 
+   }
+}
+```
