@@ -143,3 +143,109 @@ ba.setName("Cynthia");
 - allow you to change the class implementation
 - allow you to constrain objects' state
 
+# Streams and Operator Overload
+## Streams
+cin and cout are basic instream and outstream predefined in iostream library
+"<<" known as insertion operator, sends daa to outstream
+">>" known as extraction operator, receives data from instream
+
+## String Streams
+sstream library includes istringstream and ostringstream
+- istringstream allows you to use one long string to be used as an in stream
+
+```Cpp
+#include <iostream>
+#include <sstream>
+#include <string>
+
+using namespace std;
+
+int main()
+{
+string userInfo = "Amy Smith 19"; //  input string
+istringstream inSS(userInfo); // input string stream
+string firstName;
+string lastName;
+int userAge;
+
+// Parse name and age values from input string
+inSS >> firstName;
+inss >> lastName;
+inSS >> userAge;
+```
+
+# Inheritance
+When one class inherits from another class it automatically includes everything the parent class has
+- Variables
+- Functions
+- Other inheritances
+
+```Cpp
+class Number
+{
+public:
+  Number() = default;
+  Number(Number const&) = default;
+  virtual ~Number() = default;
+  virtual bool isImaginaryNumber() const noexcept = 0;
+  virtual bool isRealNumber() const noexcept = 0;
+};
+
+class ImaginaryNumber : public Number
+{
+public:
+  ImaginaryNumber() : m_realComponent(0.0), m_imagComponent(0.0) {}
+  ImaginaryNumber(ImaginaryNumber const& arg) : m_realComponent(arg.m_realComponent), m_imagComponent(arg.m_imagComponent) {}
+
+  virtual ~ImaginaryNumber() = default;
+  virtual bool isImaginaryNumber() const noexcept { return true; }
+  virtual bool isRealNumber() const noexcept { return false; }
+private:
+  long double m_realComponent;
+  long double m_imagComponent;
+};
+
+struct MenuOption { std::string title; };
+
+// Menu is a vector of MenuOption: options can be inserted, removed, reordered,...
+// and has a title
+
+class Menu : public std::vector<MenuOption>
+{
+public:
+  std::string title;
+
+  void print const
+  {
+    std::cout << title << ":\n";
+    for (std::size_t i = 0, s = size(); i < s; ++i)
+      std::cout << "  " << (i + 1) << ". " << at(i).title << '\n';
+  }
+};
+
+enum class Color { WHITE, RED, BLUE, GREEN };
+
+void apply_terminal_corlor(Color) ( /* OS-specific */ }
+
+// THIS IS BAD!
+// ColorMenu is a Menu where every option has a custom color
+class ColorMenu : public Menu
+{
+public:
+  std::vector<Color> colors;
+  void print() const
+  {
+    std:: cout << title << ":\n";
+  }
+}
+```
+- Inherited classes can overload functions defined in parent class
+- They can also call the parent's version of the overload function
+```Cpp
+void childClass::print()
+{
+  parentClass::print();
+  // whatever additional commands you want
+}
+```
+
