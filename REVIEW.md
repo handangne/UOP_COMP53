@@ -105,6 +105,57 @@ BankAccount b2("quyen", 9999);
 */
 ```
 
+```Cpp
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Restaurant {
+   public:
+      Restaurant();
+      void SetName(string restaurantName);
+      void SetRating(int userRating);
+      void Print();
+   private:
+      string name;
+      int rating;
+};
+
+Restaurant::Restaurant() {  // Default constructor
+   name = "NoName";         // Default name: NoName indicates name was not set
+   rating = -1;             // Default rating: -1 indicates rating was not set
+}
+
+void Restaurant::SetName(string restaurantName) {
+   name = restaurantName;
+}
+
+void Restaurant::SetRating(int userRating) {
+   rating = userRating;
+}
+
+// Prints name and rating on one line
+void Restaurant::Print() {
+   cout << name << " -- " << rating << endl;
+}
+
+int main() {
+   Restaurant favLunchPlace;  // Automatically calls the default constructor
+
+   favLunchPlace.Print();
+
+   favLunchPlace.SetName("Central Deli");
+   favLunchPlace.SetRating(4);
+   favLunchPlace.Print();
+
+   return 0;
+}
+/*
+NoName -- -1
+Central Deli -- 4
+*/
+```
+
 ## Private data
 ```Cpp
 private:
@@ -135,6 +186,60 @@ client code will look like this:
 ```Cpp
 cout << ba.getName() << " : $" << ba.getBalance() << endl;
 ba.setName("Cynthia");
+```
+
+```Cpp
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Restaurant {
+   public:
+      void   SetName(string restaurantName); // Mutator
+      void   SetRating(int userRating);      // Mutator
+      string GetName() const;                // Accessor
+      int    GetRating() const;              // Accessor
+      void   Print() const;                  // Accessor
+
+   private:
+      string name;
+      int rating;
+};
+
+void Restaurant::SetName(string restaurantName) {
+   name = restaurantName;
+}
+
+void Restaurant::SetRating(int userRating) {
+   rating = userRating;
+}
+
+string Restaurant::GetName() const {
+   return name;
+}
+
+int Restaurant::GetRating() const {
+   return rating;
+}
+
+void Restaurant::Print() const {
+   cout << name << " -- " << rating << endl;
+}
+
+int main() {
+   Restaurant myPlace;
+
+   myPlace.SetName("Maria's Diner");
+   myPlace.SetRating(5);
+
+   cout << myPlace.GetName() << " is rated ";
+   cout << myPlace.GetRating() << endl;
+
+   return 0;
+}
+/*
+Maria's Diner is rated 5
+*/
 ```
 
 ### Encapsulation benefit
@@ -391,4 +496,8 @@ void childClass::print()
   // whatever additional commands you want
 }
 ```
+
+# Pointer
+## Pointer variables
+A pointer is 
 
