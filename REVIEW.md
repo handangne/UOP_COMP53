@@ -499,5 +499,224 @@ void childClass::print()
 
 # Pointer
 ## Pointer variables
-A pointer is 
+A pointer is a variable that holds a memory address, rather than holding data like most variables. A pointer has a data type, and the data type determines what type of address is held in the pointer.
+A pointer is declared by including "*" before the pointer's name:
+```Cpp
+int* pointer1;
+void* pointer2;
+char* pointer3;
+// pointer is just a variable that holds a memory address
+// types does not matter
+```
+
+### Reference
+Reference needs to assign immediately.
+The reference operator "&" obtains a variable's address:
+```Cpp
+int var;
+void* ptr;
+ptr = &var; // ptr holds memory address of var
+```
+```Cpp
+#include <iostream>
+
+using namespace std;
+
+int main() {
+   int someInt = 5;
+   int* valPointer = nullptr;
+
+   valPointer = &someInt;
+   cout << valPointer << endl;
+   cout << *valPointer << endl;
+
+   return 0;
+}
+/*
+0x16f46b288
+5
+*/
+```
+
+```Cpp
+int a = 5;
+int& ref = a;
+ref = 2;
+cout << a << endl; // 2
+```
+```Cpp
+int a = 5;
+int b = 8;
+int* ref = &a; // ref holds memory address of a
+*ref = 2; // ref changes the value of a to 2
+ref = &b; // now ref holds memory address of b
+*ref = 1; // ref changes the value of b to 1
+
+cout << a << endl; // 2
+cout << b << endl; // 2
+```
+```Cpp
+void Increment(int* value)
+{
+  (*value)++;
+}
+
+int main()
+{
+  int a = 5;
+  Increment(&a);
+  cout << a << endl; // 6
+}
+```
+or
+```Cpp
+void Increment(int& value)
+{
+  value++;
+}
+
+int main()
+{
+  int a = 5;
+  Increment(a);
+  cout << a << endl; // 6
+}
+```
+
+### Dereferencing a pointer
+```Cpp
+int var = 8;
+int* ptr = &var;
+*ptr = 10; // we have access to change the value of var from 8 to 10
+```
+
+### Null pointer
+When a pointer is declared, the pointer variable holds an unknown address until the pointer is initialized.
+A programmer may wish to indicate that a pointer points to "nothing" by initializing a pointer to "null". "Null" means "nothing"
+```Cpp
+int* maxValPtr = nullptr; // makes maxValPtr null
+```
+
+### The new operator
+It allocates memory for the given type and returns a pointer to the allocated memory. If the type is a class, the new operator calls the class's constructor after allocating memory for the class's member variables
+```Cpp
+class Point{
+public:
+  Point();
+  double x;
+  double y;
+};
+
+Point::Point()
+{
+cout << "in Point default constructor" << endl;
+x = 0;
+y = 0;
+}
+
+int main()
+{
+Point* sample = new Point;
+cout << "Exiting main() << endl;
+return 0;
+}
+```
+
+### The member access operator
+```Cpp
+// display point1's Y member value with cout
+// syntax with deferencing
+cout << (*point1).Y; 
+// syntax with member access operator
+cout << point1->Y;
+
+// call point2's Print() member function
+// syntax with deferencing
+(*point2).Print(); 
+// syntax with member access operator
+point2->Print();
+```
+
+### The delete operator
+It deallocates ) or frees a block of memory that was allocated with the new operator.
+After delete, the program should not attempt to dereference pointerVariable since pointerVariable points to a memory location that is no longer allocated for use by pointerVariable.
+
+```Cpp
+int main()
+{
+Point* point1 = new Point(73,19);
+cout << "X = " << point1->X << endl;
+cout << "Y= " << point2->Y << endl;
+
+delete point1;
+
+point1 -> Print(); // ERROR: cant use point1 after deletion
+}
+```
+
+# Array
+Arrays are used to store multiple values in a single variable, instead of declaring separate variables for each value.
+To declare an array, define the variable type, specify the name of the array followed by square brackets and specify the number of elements it should store:
+```Cpp
+string cars[4] = { "Volvo", "BMW", "Ford", "Mazda" };
+int myNum[3] = { 10, 20, 30 };
+```
+```Cpp
+// To change the value of a specific element, refer to the index number:
+string cars[4] = { "Volvo", "BMW", "Ford", "Mazda" };
+cars[0] = "Opel";
+cout << cars[0];
+// Now outputs Opel instead of Volvo
+```
+
+# Vectors
+```Cpp
+ // vector<dataType> vectorName(numElements);
+vector<int> gameScores(4); // declares a vector gameScores with 4 integer elements
+```
+```Cpp
+vector<int> yearList(4);
+
+yearList.at(0) = 1999;
+yearList.at(1) = 2012;
+yearList.at(2) = 2025;
+
+currYear = yeaList.at(4); // this will cause an error because  yearList.at(4) does not exists
+```
+- A vector's elements are automatically initialized to 0 during the vector declaration.
+- All of a vector's elements may be initialized to another single value.
+
+```Cpp
+vector<int> myVec(3, -1); // creates a vector named myVec with 3 elements, each with value -1
+vector<int> carSales = {5, 7 ,11}; // creates a vector of 3 integers elements initialized with values 5, 7, and 11
+```
+- A common error is to forget the "#include <vector>" at the top of the file when using vector.
+
+- Iterating through vectors using loops
+```Cpp
+for (int i = 0; i < myVector.size(); i++)
+{
+// loop body
+}
+```
+
+## vector resize()
+```Cpp
+userVals.resize(numVals);
+```
+
+## vector push_back()
+- append a new element to the end of an existing vector using a vector's push_back() function
+```Cpp
+vector<int> dailySales;
+
+dailySales.push_back(521);
+dailySales.push_back(440);
+dailySales.push_back(317);
+```
+
+
+
+
+
 
